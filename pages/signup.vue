@@ -6,30 +6,45 @@
         <div class="sign-inputs">
           <div class="sign-input">
             <img src="../assets/image/acount.svg" alt="" />
-            <input type="text" placeholder="Имя пользователя" />
+            <input
+              v-model="registForm.name"
+              type="text"
+              placeholder="Имя пользователя"
+            />
           </div>
           <div class="sign-input">
             <img src="../assets/image/mail.svg" alt="" />
-            <input type="text" placeholder="E-mail" />
+            <input
+              v-model="registForm.email"
+              type="text"
+              placeholder="E-mail"
+            />
           </div>
           <div class="sign-input">
             <img src="../assets/image/lock.svg" alt="" /><input
+              v-model="registForm.password"
               type="password"
               placeholder="Пароль"
             />
           </div>
+          <div class="sign-input">
+            <img src="../assets/image/lock.svg" alt="" />
+            <input
+              type="password" required v-model="registForm.conpassword"
+              placeholder="Повтор пароля"
+            />
+          </div>
         </div>
         <div class="sign-buttons">
-          <button class="sign-button btn">Войти</button>
-          <NuxtLink to="/signup" class="sign-button_signup"
-            >Зарегестрироваться</NuxtLink
-          >
+          <button @click.prevent="regist" class="sign-button btn">
+            Зарегистрироваться
+          </button>
+          <NuxtLink to="/signin" class="sign-button_signup">Войти</NuxtLink>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 
 <style lang="scss">
 .signup {
@@ -109,12 +124,119 @@
 }
 </style>
 
-
 <script>
+import "animate.css";
+
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css";
+import { log } from "aframe";
+const notyf = new Notyf({
+  position: {
+    x: "center",
+    y: "top",
+  },
+});
+
+const HOST = process.env.HOST;
+
 export default {
   layout: "empty",
-  data() {
-    return {};
+  data: () => ({
+    select: null,
+    token: "",
+
+    user: "",
+    registForm: {
+      name: "123",
+      email: "test23@gmail.com",
+      password: "123",
+      conpassword: '',
+    },
+  }),
+  methods: {
+    async regist() {
+      let email = this.registForm.email;
+      let name = this.registForm.name;
+      let password = this.registForm.password;
+      let conpassword = this.registForm.conpassword;
+      let data = {
+        email: email,
+        name: name,
+        password: password,
+        confirm_password: conpassword,
+      };
+      let user = null;
+      let result;
+      // Валидация?
+      function validate(email, password) {
+        let re = /^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i;
+        if (email.length >= 1 && password.length >= 1) {
+          if (!re.test(email)) {
+            notyf.error("Неправильная почта");
+            return false;
+          } else {
+            return true;
+          }
+        } else {
+          notyf.error("Заполните все поля");
+          console.log(email, password);
+          return false;
+        }
+      }
+
+      // если валидация успешна, продолжаем
+      if (validate(email, password)) {
+        // авторизация
+        try {
+await fetch(HOST + "register", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => {
+            if (res.status == 200) {
+              result = 1;
+            } else {
+              result = 2;
+            }
+            return res.json();
+          })
+          .then((data) => {
+            console.log(data);
+            if (result == 1) {
+              this.user = data;
+              // this.saveLocalData();
+            } else {
+            }
+            if (result == 1) {
+              notyf.success("Вы успешно зарегистрировались");
+
+              localStorage.setItem("user", JSON.stringify(this.user.data));
+              console.log(JSON.parse(localStorage.getItem("user")));
+
+              this.$router.push({
+                path: '/'
+              })
+            } else {
+              this.errorNotyf(data)
+            }
+          });
+        }
+        catch(e) {
+          notyf.error(String(e))
+        }
+        
+      }
+    },
+    // Вывод ошибок Notyf
+    errorNotyf(data) {
+      for (let i = 0; i < Object.keys(data.message).length; i++) {
+        let value = Object.values(data.message)[i];
+        notyf.error(value[0]);
+      }
+    },
   },
 };
 </script>

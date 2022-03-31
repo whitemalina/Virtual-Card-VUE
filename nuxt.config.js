@@ -3,11 +3,13 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
-
+  env: {
+    HOST: process.env.BASE_URL || '//127.0.0.1:8000/api/'
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - cardVR',
-    title: 'cardVR',
+    title: 'VirtualCard',
     htmlAttrs: {
       lang: 'en'
     },

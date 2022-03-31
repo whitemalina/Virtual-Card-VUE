@@ -17,12 +17,13 @@
               placeholder="Пароль"
             />
           </div>
+          
           <div class="sign-buttons">
           <button 
         color="success"
         @click.prevent="validate"  class="sign-button btn">Войти</button>
           <NuxtLink to="/signup" class="sign-button_signup"
-            >Зарегестрироваться</NuxtLink
+            >Зарегистрироваться</NuxtLink
           >
         </div>
           </form>
@@ -38,7 +39,18 @@
 
 <script>
 import 'animate.css';
-const host = "https://68d3-178-46-180-106.ngrok.io/api/"
+
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
+const notyf = new Notyf({
+  position: {
+    x: 'center',
+    y: 'top',
+  },
+});
+
+const HOST = "http://127.0.0.1:8000/api/"
+
 export default {
   layout: "empty",
   data: () => ({
@@ -48,8 +60,8 @@ export default {
 
     user: '',
     loginForm :{
-        email : '',
-        password : '',
+        email : 'test23@gmail.com',
+        password : 'test',
     }
     
 
@@ -66,24 +78,84 @@ export default {
       // }
     },
     async auth (){
-      await fetch(host + `login`, {
-            method: 'POST',
+      let email = this.loginForm.email;
+      let password = this.loginForm.password;
+
+      let data = {
+        email: email,
+        password: password,
+      };
+      let user = null;
+      let result;
+      // Валидация?
+      function validate(email, password) {
+        let re = /^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i;
+        if (email.length >= 1 && password.length >= 1) {
+          if (!re.test(email)) {
+            notyf.error("Неправильная почта");
+            return false;
+          } else {
+            return true;
+          }
+        } else {
+          notyf.error("Заполните все поля");
+          console.log(email, password);
+          return false;
+        }
+      }
+
+      // если валидация успешна, продолжаем
+      if (validate(email, password)) {
+        // авторизация
+        try{
+          await fetch(HOST + "login", {
+            method: "POST",
+            body: JSON.stringify(data),
             headers: {
-                'Content-Type': 'application/json'
+              "Content-Type": "application/json",
             },
-            body: JSON.stringify(this.loginForm)
           })
-          .then(res => res.json())
-          .then(body => {
-            
-            console.log(body);
-            this.user = body
-          })
-          console.log(this.user);
-          this.token = this.user.api_token
-          localStorage.setItem('api-token', this.token)
-          
-          
+            .then((res) => {
+              if (res.status == 200) {
+                result = 1;
+              } else {
+                result = 2;
+              }
+              return res.json();
+            })
+            .then((data) => {
+              console.log(data);
+              if (result == 1) {
+                this.user = data;
+                // this.saveLocalData();
+
+              } else {
+
+              }
+              if (result == 1) {
+                notyf.success("Вы успешно вошли");
+                // this.login.email = this.regist.email;
+                // this.login.password = this.regist.password;
+                // this.setPage("succes");
+                localStorage.setItem("user", JSON.stringify(this.user.data));
+                console.log(JSON.parse(localStorage.getItem("user")));
+                this.$router.push({
+                    path: '/'
+                })
+              } else {
+                notyf.error("Ошибка: " + data.message);
+              }
+            });
+        } catch (e) {
+          notyf.error(String(e));
+        }
+        
+
+      }
+
+      //clear
+      // this.login.email = '';
+      // this.login.password ='';
 
     },
     reset () {
