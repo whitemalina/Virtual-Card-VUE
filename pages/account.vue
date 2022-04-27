@@ -261,7 +261,7 @@
 </template>
 
 
-<style lang="Scss">
+<style  lang="Scss">
 
     .account{
         

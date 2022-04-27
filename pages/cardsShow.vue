@@ -263,7 +263,7 @@
 </template>
 
 
-<style lang="SCSS">
+<style  lang="SCSS">
     .card-wrapper {
        
         border-radius: 10px;

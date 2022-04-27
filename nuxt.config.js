@@ -4,7 +4,10 @@ export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
   env: {
-    HOST: process.env.BASE_URL || '//127.0.0.1:8000/api/'
+    HOST: process.env.BASE_URL || 'http://192.168.88.254:8000/api/'
+  },
+  server: {
+    host: '0.0.0.0' // default: localhost
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -20,7 +23,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
     ]
   },
 
@@ -35,6 +38,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/aframe.js',
+    '~/plugins/tailwind.js',
     '~/plugins/qrcode.min.js'
   ],
 
@@ -45,6 +49,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
