@@ -60,7 +60,7 @@ const HOST = process.env.HOST;
 export default {
   layout: "empty",
    async beforeMount(){
-
+      this.getbg()
       console.log(this.$route.query['url']);
       
         await fetch(HOST + 'card/' + this.$route.query['url']).then(res => res.json()).then(json => {
@@ -75,7 +75,7 @@ export default {
       
   },
   mounted() {
-    this.getbg()
+    //this.getbg()
   },
   data() {
     return {
@@ -93,8 +93,8 @@ export default {
             let data = json.data[0]
             this.title = data.title
             this.content = data.content
-            this.scene.bg = data.scene[0].bg_path
-            this.scene.img = data.scene[0].text
+            //this.scene.bg = data.scene[0].bg_path
+            //this.scene.img = data.scene[0].text
           console.log(json);
          })
     }
