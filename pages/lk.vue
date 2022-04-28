@@ -347,7 +347,7 @@
                     <div v-for="(card, index) in cards" class="cardContainer" :key="card.id"  style="background-image: url('/assets/img/image 4.png')">
                         <div class="card">
                             <div class="card__background">
-                                <img src="../assets/img/image 4.png" alt="">
+                                <img src="/assets/img/image 4.png" alt="">
                             </div>
                             <div class="card__info">
                                 <div class="card__bio">
