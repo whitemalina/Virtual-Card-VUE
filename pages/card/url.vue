@@ -61,9 +61,9 @@ export default {
   layout: "empty",
    async beforeMount(){
 
-      console.log(this.$route.params.url);
+      console.log(this.$route.query['url']);
       
-        await fetch(HOST + 'card/' + this.$route.params.url).then(res => res.json()).then(json => {
+        await fetch(HOST + 'card/' + this.$route.query['url']).then(res => res.json()).then(json => {
             let data = json.data[0]
             this.title = data.title
             this.content = data.content

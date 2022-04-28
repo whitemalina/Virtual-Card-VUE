@@ -3,6 +3,8 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
+  
+  mode: 'universal',
   env: {
     HOST: process.env.BASE_URL || 'http://192.168.88.254:8000/api/'
   },
@@ -57,7 +59,6 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
   ],
-
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
 
