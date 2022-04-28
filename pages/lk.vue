@@ -264,7 +264,7 @@
         <a class="navButton" href="#">Поиск</a>
         <a class="navButton" href="#">Маркет</a>
         <a class="navButton" @click="logout()" href="#">
-            <img src="../assets/img/logout.svg" alt="Выйти">
+
         </a>
     </div>
     </div>
@@ -329,7 +329,7 @@
                                 <span class="number">{{cardCount}}</span>
                                 <span>{{decWord}}</span>
                                 <button @click="dialog2 = !dialog2" v-if="loadedNum">
-                                    <img src="../assets/img/addCard.svg" alt="">
+                                    <img src="/assets/img/addCard.svg" alt="">
                                 </button>
                             </div>
                         </div>
