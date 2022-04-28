@@ -1470,7 +1470,7 @@ export default {
               this.dialog2 = false; this.dialog = true;
               
               console.log(location.href.slice(0, -1) + 'card/url?url=' + url);
-              this.card.qrurl = String(location.href.slice(0, -1).slice(0, -1) + 'card/url?url=' + url)
+              this.card.qrurl = String(location.href.slice(0, -1).slice(0, -1).slice(0, -1) + 'card/url?url=' + url)
 
             } else {
               this.errorNotyf(data)
