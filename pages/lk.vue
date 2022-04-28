@@ -199,7 +199,7 @@
               ></v-progress-linear>
             </template>
 
-            <vue-qr style="margin-left: 50%; transform: translateX(-50%); margin-top: 2rem; border-radius: 17px"  logoSrc='assets/img/Group 13 (1).png' logoScale='0' logoBackgroundColor='transparent'  :text="card.qrurl" :size="250"></vue-qr>
+            <vue-qr style="margin-left: 50%; transform: translateX(-50%); margin-top: 2rem; border-radius: 17px"  logoSrc='../assets/img/Group 13 (1).png' logoScale='0' logoBackgroundColor='transparent'  :text="card.qrurl" :size="250"></vue-qr>
 
             <v-card-title>{{ card.title }}</v-card-title>
 
@@ -264,7 +264,7 @@
         <a class="navButton" href="#">Поиск</a>
         <a class="navButton" href="#">Маркет</a>
         <a class="navButton" @click="logout()" href="#">
-            <img src="assets/img/logout.svg" alt="Выйти">
+            <img src="../assets/img/logout.svg" alt="Выйти">
         </a>
     </div>
     </div>
@@ -329,7 +329,7 @@
                                 <span class="number">{{cardCount}}</span>
                                 <span>{{decWord}}</span>
                                 <button @click="dialog2 = !dialog2" v-if="loadedNum">
-                                    <img src="assets/img/addCard.svg" alt="">
+                                    <img src="/assets/img/addCard.svg" alt="">
                                 </button>
                             </div>
                         </div>
