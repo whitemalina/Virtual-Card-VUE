@@ -75,7 +75,7 @@ export default {
       
   },
   mounted() {
-    //this.getbg()
+    this.getbg()
   },
   data() {
     return {
