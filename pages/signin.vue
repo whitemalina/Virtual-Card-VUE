@@ -1637,9 +1637,9 @@ export default {
       password: "",
     },
     registForm: {
-      name: "123",
-      email: "test23@gmail.com",
-      password: "123",
+      name: "",
+      email: "",
+      password: "",
       conpassword: '',
     },
   }),
