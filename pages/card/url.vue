@@ -23,8 +23,8 @@
         </script>
         <a-scene>
                 <a-assets>
-                    <img id="city" crossorigin=null  :src="scene.bg" />
-                    <img id="my-image" crossorigin=null :src="scene.img" alt="" />
+                    <img id="city" crossorigin=null  src="https://raw.githubusercontent.com/whitemalina/bop/main/city.jpeg" />
+                    <img id="my-image" crossorigin=null src="https://raw.githubusercontent.com/whitemalina/bop/main/pngegg.png" alt="" />
                 </a-assets>
 
                 <a-sky hide-in-ar-mode id="image-360" rotation="0 -112.49 0" radius="100" src="#city"> </a-sky>
@@ -89,12 +89,12 @@ export default {
   },
   methods: {
     async getbg() {
-          await fetch(HOST + 'card/' + this.$route.params.url).then(res => res.json()).then(json => {
+        await fetch(HOST + 'card/' + this.$route.query['url']).then(res => res.json()).then(json => {
             let data = json.data[0]
             this.title = data.title
             this.content = data.content
-            //this.scene.bg = data.scene[0].bg_path
-            //this.scene.img = data.scene[0].text
+            this.scene.bg = data.scene[0].bg_path
+            this.scene.img = data.scene[0].text
           console.log(json);
          })
     }
