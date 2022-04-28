@@ -5,7 +5,7 @@ export default {
   ssr: false,
 
   env: {
-    HOST: process.env.BASE_URL || 'https://f755-94-25-188-73.eu.ngrok.io/api'
+    HOST: process.env.BASE_URL || '//f755-94-25-188-73.eu.ngrok.io/api'
   },
   server: {
     host: '0.0.0.0' // default: localhost
