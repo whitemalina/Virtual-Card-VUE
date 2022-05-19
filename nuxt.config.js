@@ -5,7 +5,7 @@ export default {
   ssr: false,
 
   env: {
-    HOST: process.env.BASE_URL || '//7e6e-178-178-93-199.eu.ngrok.io/api/'
+    HOST: process.env.BASE_URL || '//vrcardlaravel.herokuapp.com/public/api/'
   },
   server: {
     host: '0.0.0.0' // default: localhost
